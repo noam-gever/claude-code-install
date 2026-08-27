@@ -115,31 +115,34 @@ a{color:inherit; text-underline-offset:3px}
 
 /* סרטון הפתיחה */
 .intro-vid{
-  margin-top:44px; aspect-ratio:2154/1440;
-  width:min(1000px, calc(100vw - 40px));
-  margin-inline:calc((100% - min(1000px, 100vw - 40px)) / 2);
+  margin:40px auto 0; aspect-ratio:2154/1440;
+  width:100%; max-width:1000px;
   border-radius:22px; overflow:hidden; background:#000;
   box-shadow:0 30px 80px rgba(0,0,0,.6), 0 0 0 1px rgba(217,119,87,.22);
 }
 .intro-vid iframe{width:100%; height:100%; border:0; display:block}
 .intro-vid:empty{display:none}
 
-/* איך הדף עובד */
-.howto{margin:46px auto 0; max-width:640px; text-align:right}
-.howto h3{font-size:11.5px; font-weight:700; letter-spacing:.18em; color:var(--fg-45);
-  margin-bottom:16px; text-align:center}
-.howto ul{margin:0; padding:0; list-style:none; display:grid; gap:12px}
-.howto li{
-  position:relative; padding:20px 64px 20px 22px; border-radius:16px;
-  background:rgba(255,255,255,.05); border:1px solid var(--edge);
-  font-size:16.5px; font-weight:300; color:var(--fg-70); line-height:1.6;
-  box-shadow:0 10px 28px rgba(0,0,0,.22);
-  transition:transform .28s var(--ease),box-shadow .28s,border-color .28s;
-}
-.howto li:hover{transform:translateY(-4px); box-shadow:0 20px 44px rgba(0,0,0,.3);
-  border-color:rgba(217,119,87,.5)}
-.howto li b{color:var(--fg); font-weight:600}
-.howto .n{position:absolute; right:20px; top:19px; font-size:14.5px; font-weight:700; color:var(--clay-lt)}
+/* שורת הדרישות — קומפקטית */
+.need-row{display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:10px 16px;
+  margin:30px auto 0; max-width:760px}
+.need-item{display:inline-flex; align-items:center; gap:8px; font-size:14.5px; color:var(--fg-70); font-weight:300}
+.need-item svg{width:16px; height:16px; color:var(--fg-45); flex-shrink:0}
+.need-item.hot{color:#F3C7B2; font-weight:500}
+.need-item.hot svg{color:var(--clay)}
+.need-item .qq{width:17px; height:17px; border-radius:50%; background:rgba(255,255,255,.09);
+  border:1px solid rgba(255,255,255,.18); color:var(--fg-45); font-size:11px; font-weight:700;
+  display:grid; place-items:center; font-family:"Space Mono",monospace; transition:all .2s; padding:0}
+.need-item .qq:hover,.need-row.on .qq{background:var(--clay); color:#fff; border-color:var(--clay)}
+.need-dot{color:var(--fg-45); opacity:.5}
+.need-more{display:grid; grid-template-rows:0fr; transition:grid-template-rows .38s var(--ease); width:100%}
+.need-row.on .need-more{grid-template-rows:1fr}
+.need-more>div{overflow:hidden}
+.need-more p{padding-top:14px; font-size:14.5px; color:var(--fg-70); font-weight:300; line-height:1.6;
+  max-width:52ch; margin-inline:auto}
+.need-more code{background:rgba(255,255,255,.09); border:1px solid rgba(255,255,255,.16); color:#F3C7B2;
+  padding:1.5px 7px; border-radius:6px; font-family:"Space Mono",monospace; font-size:12.5px;
+  direction:ltr; display:inline-block}
 
 .jump{margin-top:32px; display:inline-flex; align-items:center; gap:12px; padding:19px 40px; border-radius:16px;
   background:var(--clay-dp); color:#fff; font-size:18px; font-weight:700; text-decoration:none;
@@ -166,41 +169,6 @@ a{color:inherit; text-underline-offset:3px}
 .mini button.on{background:var(--clay-dp); color:#fff}
 
 /* ===== דרישות ===== */
-.req h2{font-size:clamp(32px,6vw,50px)}
-.req h2 em{font-style:normal; color:var(--hi)}
-.req>p{margin-top:18px; font-size:18.5px; color:var(--fg-70); font-weight:300; max-width:48ch}
-.specs{margin:44px 0 0; display:grid; gap:13px}
-.spec{display:flex; align-items:flex-start; gap:16px; padding:22px 24px; border-radius:18px;
-  background:var(--box); border:1px solid var(--edge); box-shadow:0 12px 30px rgba(0,0,0,.09);
-  transition:transform .28s var(--ease),box-shadow .28s,border-color .28s}
-.spec:hover{transform:translateY(-4px); box-shadow:0 22px 48px rgba(0,0,0,.14); border-color:var(--hi)}
-.spec .ic{width:42px; height:42px; border-radius:13px; background:var(--box); border:1px solid var(--edge-2); color:var(--hi);
-  display:grid; place-items:center; flex-shrink:0}
-.spec .ic svg{width:20px; height:20px}
-.spec b{display:block; font-size:18px; font-weight:700; margin-bottom:4px}
-.spec p{font-size:15.5px; color:var(--fg-70); font-weight:300; line-height:1.6}
-.spec code{background:var(--box); border:1px solid var(--edge-2); color:var(--hi-2); padding:1.5px 8px; border-radius:6px;
-  font-family:"Space Mono",monospace; font-size:13px; direction:ltr; display:inline-block}
-.spec-hot{border-color:var(--hi); background:linear-gradient(140deg,var(--box),rgba(217,119,87,.1))}
-.spec-hot .ic{border-color:var(--hi); color:var(--hi)}
-.how{margin-top:12px}
-.how>button{display:inline-flex; align-items:center; gap:8px; font-size:14px; color:var(--fg-45);
-  padding:4px 0; transition:color .2s; text-align:right}
-.how>button:hover,.how.on>button{color:var(--hi)}
-.how>button .q{width:17px; height:17px; border-radius:50%; flex-shrink:0; display:grid; place-items:center;
-  background:var(--box); border:1px solid var(--edge-2); font-size:11px; font-weight:700;
-  font-family:"Space Mono",monospace}
-.how.on>button .q{background:var(--hi); color:var(--bg); border-color:var(--hi)}
-.how-in{display:grid; grid-template-rows:0fr; transition:grid-template-rows .38s var(--ease)}
-.how.on .how-in{grid-template-rows:1fr}
-.how-in>div{overflow:hidden}
-.how-in p{padding-top:10px; font-size:15px; color:var(--fg-70); font-weight:300; line-height:1.6}
-.how-in code{background:var(--box); border:1px solid var(--edge-2); color:var(--hi-2);
-  padding:1.5px 8px; border-radius:6px; font-family:"Space Mono",monospace; font-size:13px;
-  direction:ltr; display:inline-block}
-.warn{margin-top:30px; padding:22px 24px; border-radius:18px; background:var(--box); border-inline-start:4px solid var(--hi); font-size:16.5px; color:var(--fg-70); font-weight:300; line-height:1.62}
-.warn b{color:var(--fg); font-weight:700}
-
 /* ===== שלב ===== */
 .eyebrow{display:flex; align-items:center; gap:13px; font-size:11.5px; font-weight:700; letter-spacing:.18em; color:var(--fg-45); margin-bottom:18px}
 .eyebrow .bar{flex:1; height:1px; background:var(--edge); max-width:110px}
@@ -317,8 +285,12 @@ body[data-os="mac"] .win-only{display:none}
 .rev.seen{opacity:1; transform:none}
 
 @media (prefers-reduced-motion:reduce){*{animation:none !important; transition-duration:.01ms !important} .rev{opacity:1; transform:none} html{scroll-behavior:auto}}
+@media (min-width:1000px){
+  .intro-vid{width:1000px; margin-inline:calc((100% - 1000px) / 2)}
+}
 @media (max-width:640px){
   body{font-size:16.5px}
+  .vid{margin-inline:0}
   .blk{padding:74px 0}
   .cut-top,.cut-top-r{padding-top:98px; margin-top:-30px}
   .cut-top{clip-path:polygon(0 0,100% 30px,100% 100%,0 100%)}
@@ -331,11 +303,9 @@ body[data-os="mac"] .win-only{display:none}
   .os{flex-direction:row; justify-content:flex-start; text-align:right; padding:22px; gap:18px}
   .os svg.glyph{width:44px; height:44px}
   .os>div{align-items:flex-start}
-  .howto{padding:20px}
   .acts li{padding:18px 54px 18px 18px}
   .acts li::before{right:16px; top:17px}
   .go,.cta,.jump{width:100%; justify-content:center; padding:18px 24px}
-  .spec{padding:18px; gap:13px}
   .kit li{gap:14px}
   .qa .ans p{padding-right:30px; padding-left:0}
 }
@@ -367,16 +337,9 @@ body[data-os="mac"] .win-only{display:none}
 
     <div class="intro-vid" id="introWrap"></div>
 
-    <div class="howto">
-      <h3>איך הדף הזה עובד</h3>
-      <ul>
-        <li><span class="n mono">01</span><span>בוחרים למעלה מק או ווינדוס. <b>כל הדף משתנה לפי הבחירה</b>, ומה שלא רלוונטי לכם פשוט לא יופיע.</span></li>
-        <li><span class="n mono">02</span><span>גוללים למטה ועושים שלב אחרי שלב. <b>בכל שלב יש סרטון</b> שמראה בדיוק מה קורה על המסך.</span></li>
-        <li><span class="n mono">03</span><span>נתקעתם? בכל שלב יש <b>"יש תקלה?"</b> שנפתח לרשימת בעיות עם פתרון לכל אחת.</span></li>
-      </ul>
-    </div>
+    <div class="need-row" id="needRow"></div>
 
-    <a class="jump" href="#req">
+    <a class="jump" href="#s0">
       יאללה, מתחילים
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
     </a>
@@ -400,17 +363,6 @@ body[data-os="mac"] .win-only{display:none}
     </span>
   </div>
 </div>
-
-<!-- ═══ דרישות מערכת — לפני שמוציאים שקל ═══ -->
-<section class="blk t-cream tex-dots cut-top req" id="req">
-  <div class="in rev">
-    <div class="eyebrow"><span class="mono">לפני הכל</span><span class="bar"></span></div>
-    <h2>קודם כל<em>בואו נבדוק כמה דברים.</em></h2>
-    <p>חצי דקה, ואז מתחילים.</p>
-    <div class="specs" id="specs"></div>
-    <div class="warn" id="warnBox"></div>
-  </div>
-</section>
 
 <div id="steps"></div>
 
@@ -477,23 +429,16 @@ const RHYTHM=[
  {t:'t-esp',   tex:'tex-grid', cut:'cut-top',   alt:true }
 ];
 
-const SPECS={
- mac:[
-  ['מק עם macOS 13 ומעלה','','chip','איך בודקים איזה מק יש לי?','תפריט אפל בפינה למעלה ← <code>על אודות מק זה</code>. המספר שמופיע שם הוא הגרסה שלכם.'],
-  ['מנוי קלוד בתשלום','<b>מינימום 20 דולר לחודש.</b> אין גרסה חינמית שעובדת. אפשר לבטל מתי שרוצים.','card','',''],
-  ['חיבור לאינטרנט','אם אתם קוראים את השורה הזאת, כנראה שיש לכם.','net','','']
- ],
- win:[
-  ['ווינדוס 10 ומעלה','','chip','איך בודקים איזה ווינדוס יש לי?','מקש ווינדוס ← כותבים <code>אודות</code> ← <code>אודות המחשב</code>. מחפשים את השורה "מהדורה".'],
-  ['מנוי קלוד בתשלום','<b>מינימום 20 דולר לחודש.</b> אין גרסה חינמית שעובדת. אפשר לבטל מתי שרוצים.','card','',''],
-  ['חיבור לאינטרנט','אם אתם קוראים את השורה הזאת, כנראה שיש לכם.','net','','']
- ]
-};
-const WARN={
- mac:'<b>יש לכם מק ישן יותר?</b> קלוד קוד לא ירוץ עליו. עדיף לדעת עכשיו.',
- win:'<b>יש לכם ווינדוס 8 או 7?</b> קלוד קוד לא ירוץ עליו. עדיף לדעת עכשיו.'
+const NEED={
+ mac:{sys:'מק עם macOS 13 ומעלה',
+      how:'תפריט אפל בפינה ← <code>על אודות מק זה</code>. המספר שם הוא הגרסה שלכם. <b>מק ישן יותר לא יריץ את קלוד קוד</b>, ועדיף לדעת עכשיו.'},
+ win:{sys:'ווינדוס 10 ומעלה',
+      how:'מקש ווינדוס ← כותבים <code>אודות</code> ← <code>אודות המחשב</code>. מחפשים את השורה "מהדורה". <b>ווינדוס 8 או 7 לא יריצו את קלוד קוד</b>, ועדיף לדעת עכשיו.'}
 };
 const ICONS={
+ sys:'<rect x=\'3\' y=\'4\' width=\'18\' height=\'13\' rx=\'2\'/><path d=\'M8 21h8M12 17v4\'/>',
+ pay:'<rect x=\'2\' y=\'5\' width=\'20\' height=\'14\' rx=\'2\'/><path d=\'M2 10h20M6 15h4\'/>',
+ web:'<circle cx=\'12\' cy=\'12\' r=\'9\'/><path d=\'M3 12h18M12 3c2.5 2.7 3.8 6 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-6-3.8-9S9.5 5.7 12 3z\'/>',
  chip:'<rect x="4" y="4" width="16" height="16" rx="3"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M1 9h3M1 15h3M20 9h3M20 15h3"/>',
  card:'<rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h4"/>',
  net:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 6 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-6-3.8-9S9.5 5.7 12 3z"/>'
@@ -634,18 +579,15 @@ function setOS(which,keep){
       'allow="accelerometer; encrypted-media; picture-in-picture; fullscreen"></iframe>';
   }
   $('#allN').textContent=steps.length;
-  $('#specs').innerHTML=SPECS[os].map((s,i)=>`
-    <div class="spec${s[1].includes('<b>')?' spec-hot':''}">
-      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">${ICONS[s[2]]}</svg></span>
-      <div>
-        <b>${esc(s[0])}</b>${s[1]?`<p>${s[1]}</p>`:''}
-        ${s[3]?`<div class="how" data-how="${i}">
-          <button type="button"><span class="q">?</span>${esc(s[3])}</button>
-          <div class="how-in"><div><p>${s[4]}</p></div></div>
-        </div>`:''}
-      </div>
-    </div>`).join('');
-  $('#warnBox').innerHTML=WARN[os];
+  const ic=k=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">${ICONS[k]}</svg>`;
+  $('#needRow').innerHTML=`
+    <span class="need-item">${ic('sys')}${esc(NEED[os].sys)}
+      <button class="qq" type="button" data-need aria-label="איך בודקים">?</button></span>
+    <span class="need-dot">·</span>
+    <span class="need-item hot">${ic('pay')}מנוי בתשלום, מ-20 דולר לחודש</span>
+    <span class="need-dot">·</span>
+    <span class="need-item">${ic('web')}חיבור לאינטרנט</span>
+    <div class="need-more"><div><p>${NEED[os].how}</p></div></div>`;
   if(!keep) done=new Set();
   render(); save();
 }
@@ -735,8 +677,7 @@ document.addEventListener('click',e=>{
     box.querySelectorAll('.item').forEach(x=>x.classList.remove('on'));
     item.classList.toggle('on',!was); return;
   }
-  const how=e.target.closest('[data-how] > button');
-  if(how){ how.parentElement.classList.toggle('on'); return; }
+  if(e.target.closest('[data-need]')){ $('#needRow').classList.toggle('on'); return; }
   const act=e.target.closest('[data-act]');
   if(!act) return;
   const blk=act.closest('.blk'), i=blk?+blk.dataset.i:-1;
