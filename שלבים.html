@@ -451,11 +451,9 @@ function start(which,jumpTo){
         <div class="stg eyebrow"><span class="mono">שלב ${i+1} מתוך ${steps.length}</span><s></s></div>
         <h2 class="stg">${esc(st.t)}</h2>
         ${st.note?`<p class="stg lead" style="margin:12px 0 0;text-align:right;max-width:none">${esc(st.note)}</p>`:''}
-        <div class="stg">${yt
-          ? `<div class="vid"><iframe src="https://www.youtube-nocookie.com/embed/${yt}?rel=0&hl=he"
+        ${yt?`<div class="stg"><div class="vid"><iframe src="https://www.youtube-nocookie.com/embed/${yt}?rel=0&hl=he"
                title="${esc(st.t)}" loading="lazy" allowfullscreen
-               allow="accelerometer; encrypted-media; picture-in-picture; fullscreen"></iframe></div>`
-          : `<div class="vid none"><span>הסרטון יעלה בקרוב</span></div>`}</div>
+               allow="accelerometer; encrypted-media; picture-in-picture; fullscreen"></iframe></div></div>`:''}
         <div class="stg">
           <ol class="acts">${st.acts.map(a=>`<li>${a}</li>`).join('')}</ol>
           ${st.warn?`<p class="lead" style="margin:16px 0 0;text-align:right;max-width:none;font-size:15.5px;color:#F0C2AC">⚠ ${st.warn}</p>`:''}
