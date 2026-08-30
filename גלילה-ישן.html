@@ -1,0 +1,723 @@
+<!doctype html>
+<html dir="rtl" lang="he">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>מתקינים את קלוד קוד</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;800;900&family=Montserrat:wght@800;900&family=Space+Mono:wght@400;700&display=swap">
+
+<style>
+:root{
+  --clay:#D97757; --clay-lt:#E89B7D; --clay-dp:#A8492C; --clay-dk:#7E3520;
+  --night:#14100E; --espresso:#241A15;
+  --cream:#F7F2EA; --sand:#EADCCB;
+  --ok:#5E9E77;
+  --ease:cubic-bezier(.2,.8,.25,1);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; direction:rtl; text-align:right; background:var(--night);
+  font-family:Heebo,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:17px; line-height:1.7; -webkit-font-smoothing:antialiased; overflow-x:hidden;
+}
+h1,h2,h3{margin:0; text-wrap:balance; line-height:1.1; font-weight:900; letter-spacing:-.035em}
+p{margin:0}
+button{font:inherit; cursor:pointer; border:none; background:none; color:inherit}
+a{color:inherit; text-underline-offset:3px}
+:focus-visible{outline:3px solid var(--clay); outline-offset:4px; border-radius:8px}
+.mono{font-family:"Space Mono",ui-monospace,monospace; letter-spacing:.02em}
+.logo{font-family:Montserrat,sans-serif; font-weight:900; letter-spacing:-.035em; line-height:1; user-select:none; white-space:nowrap}
+.logo .ai{color:var(--clay)}
+.in{max-width:820px; margin:0 auto; padding:0 24px; position:relative; z-index:2}
+
+/* ===== בלוק ===== */
+.blk{position:relative; padding:106px 0; overflow:hidden; isolation:isolate; background:var(--bg); color:var(--fg)}
+.t-night{--bg:var(--night); --fg:#F6F2EC; --fg-70:#ACA49B; --fg-45:#948C82; --hi:var(--clay); --hi-2:var(--clay-lt);
+  --box:rgba(255,255,255,.085); --edge:rgba(255,255,255,.16); --edge-2:rgba(255,255,255,.2); --btn:var(--clay-dp); --btn-fg:#fff; --wash:var(--clay)}
+.t-esp{--bg:var(--espresso); --fg:#F6EFE8; --fg-70:#B5A79C; --fg-45:#9A8E82; --hi:var(--clay-lt); --hi-2:#F2B394;
+  --box:rgba(255,255,255,.09); --edge:rgba(255,255,255,.17); --edge-2:rgba(255,255,255,.2); --btn:var(--clay-dp); --btn-fg:#fff; --wash:var(--clay)}
+.t-clay{--bg:#9C4025; --fg:#FFF6F1; --fg-70:#F9DCCE; --fg-45:#F4CFBD; --hi:#FFD9C7; --hi-2:#FFE8DC;
+  --box:rgba(0,0,0,.26); --edge:rgba(255,255,255,.26); --edge-2:rgba(255,255,255,.34); --btn:#FFF4EE; --btn-fg:var(--clay-dk); --washO:.3}
+.t-cream{--bg:var(--cream); --fg:#1A130F; --fg-70:#5E5248; --fg-45:#6D6257; --hi:#8E3A20; --hi-2:#752E19;
+  --box:rgba(255,255,255,.72); --edge:rgba(26,19,15,.14); --edge-2:rgba(26,19,15,.24); --btn:#1A130F; --btn-fg:var(--cream); --wash:var(--clay); --washO:.28}
+.t-sand{--bg:var(--sand); --fg:#1A130F; --fg-70:#5E5248; --fg-45:#635849; --hi:#8E3A20; --hi-2:#752E19;
+  --box:rgba(255,255,255,.72); --edge:rgba(26,19,15,.16); --edge-2:rgba(26,19,15,.26); --btn:#8E3A20; --btn-fg:#fff; --wash:var(--clay); --washO:.28}
+
+.tex-grid::before{content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
+  background-image:linear-gradient(currentColor 1px,transparent 1px),linear-gradient(90deg,currentColor 1px,transparent 1px);
+  background-size:74px 74px; opacity:.11; mask-image:radial-gradient(ellipse 95% 80% at 50% 40%,#000 30%,transparent 96%)}
+.tex-diag::before{content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
+  background:repeating-linear-gradient(-45deg,transparent,transparent 46px,currentColor 46px,currentColor 48px); opacity:.1}
+.tex-dots::before{content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
+  background-image:radial-gradient(currentColor 1.6px,transparent 1.6px); background-size:28px 28px; opacity:.13}
+.blk::after{content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
+  background:radial-gradient(ellipse 66% 50% at var(--gx,50%) var(--gy,0%),var(--wash,var(--hi)),transparent 68%); opacity:var(--washO,.16)}
+.glow::before{content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
+  background:
+    radial-gradient(ellipse 58% 44% at 50% -6%, rgba(217,119,87,.58), transparent 62%),
+    radial-gradient(ellipse 70% 40% at 10% 104%, rgba(217,119,87,.26), transparent 66%),
+    linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);
+  background-size:auto,auto,74px 74px,74px 74px}
+.glow{--washO:.3}
+
+.cut-top{clip-path:polygon(0 0,100% 46px,100% 100%,0 100%); margin-top:-46px; padding-top:136px}
+.cut-top-r{clip-path:polygon(0 46px,100% 0,100% 100%,0 100%); margin-top:-46px; padding-top:136px}
+
+.ghost{position:absolute; z-index:1; pointer-events:none; user-select:none;
+  font-family:Montserrat,sans-serif; font-weight:900; line-height:.7;
+  font-size:clamp(340px,60vw,900px); letter-spacing:-.07em;
+  inset-inline-start:-.05em; top:50%; transform:translateY(-50%);
+  color:currentColor; opacity:.07;
+}
+.blk-alt .ghost{inset-inline-start:auto; inset-inline-end:-.05em}
+.t-night .ghost,.t-esp .ghost{opacity:.1}
+.t-clay .ghost{opacity:.12}
+.t-cream .ghost,.t-sand .ghost{opacity:.055}
+@media (max-width:640px){.ghost{font-size:clamp(240px,72vw,420px); opacity:.05}}
+
+/* ===== שער ===== */
+#top{min-height:100svh; display:grid; place-items:center; padding:44px 24px; text-align:center}
+#top .in{max-width:900px}
+.top-logo{font-size:23px; margin-bottom:32px}
+.pill{display:inline-flex; align-items:center; gap:9px; padding:8px 16px 8px 13px; border-radius:99px;
+  background:rgba(217,119,87,.14); border:1px solid rgba(217,119,87,.32);
+  font-size:12.5px; font-weight:500; color:#EFB49A; margin-bottom:26px}
+.pill svg{width:13px; height:13px}
+#top h1{font-size:clamp(44px,9.4vw,82px); letter-spacing:-.048em}
+#top h1 em{font-style:normal; color:var(--clay); display:block}
+.top-sub{margin:22px auto 0; max-width:40ch; font-size:19px; font-weight:300; color:var(--fg-70); line-height:1.6}
+
+/* בחירת מערכת — כרטיסים זכוכיתיים */
+.pick-q{margin:44px 0 16px; font-size:11.5px; font-weight:700; letter-spacing:.2em; color:var(--fg-45)}
+.os-row{display:grid; grid-template-columns:1fr 1fr; gap:16px; max-width:560px; margin-inline:auto}
+.os{
+  position:relative; overflow:hidden; background:rgba(255,255,255,.06);
+  border:1px solid rgba(217,119,87,.32); border-radius:24px; padding:38px 20px 32px; color:var(--fg);
+  display:flex; flex-direction:column; align-items:center; gap:16px;
+  box-shadow:0 18px 48px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.08);
+  transition:transform .32s var(--ease), background .3s, border-color .3s, box-shadow .32s;
+}
+.os::after{content:""; position:absolute; inset:0; border-radius:24px; pointer-events:none;
+  background:radial-gradient(ellipse 90% 70% at 50% 0%,rgba(217,119,87,.34),transparent 72%); opacity:.5; transition:opacity .3s}
+.os:hover{transform:translateY(-9px); background:rgba(255,255,255,.09); border-color:rgba(217,119,87,.75);
+  box-shadow:0 30px 66px rgba(0,0,0,.5), 0 0 0 1px rgba(217,119,87,.3), inset 0 1px 0 rgba(255,255,255,.12)}
+.os:hover::after{opacity:1}
+.os.on{border-color:var(--clay); background:rgba(217,119,87,.14)}
+.os.on::after{opacity:1}
+.os svg.glyph{width:62px; height:62px; color:var(--clay-lt); position:relative}
+.os>div{position:relative; display:flex; flex-direction:column; align-items:center; gap:4px}
+.os b{font-size:23px; font-weight:700}
+.os span{font-size:13.5px; color:var(--fg-45); font-weight:300}
+
+/* סרטון הפתיחה */
+.intro-vid{
+  margin:40px auto 0; aspect-ratio:2154/1440;
+  width:100%; max-width:1000px;
+  border-radius:22px; overflow:hidden; background:#000;
+  box-shadow:0 30px 80px rgba(0,0,0,.6), 0 0 0 1px rgba(217,119,87,.22);
+}
+.intro-vid iframe{width:100%; height:100%; border:0; display:block}
+.intro-vid:empty{display:none}
+
+/* שורת הדרישות — קומפקטית */
+.need-row{display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:10px 16px;
+  margin:30px auto 0; max-width:760px}
+.need-item{display:inline-flex; align-items:center; gap:8px; font-size:14.5px; color:var(--fg-70); font-weight:300}
+.need-item svg{width:16px; height:16px; color:var(--fg-45); flex-shrink:0}
+.need-item.hot{color:#F3C7B2; font-weight:500}
+.need-item.hot svg{color:var(--clay)}
+.need-item .qq{width:17px; height:17px; border-radius:50%; background:rgba(255,255,255,.09);
+  border:1px solid rgba(255,255,255,.18); color:var(--fg-45); font-size:11px; font-weight:700;
+  display:grid; place-items:center; font-family:"Space Mono",monospace; transition:all .2s; padding:0}
+.need-item .qq:hover,.need-row.on .qq{background:var(--clay); color:#fff; border-color:var(--clay)}
+.need-dot{color:var(--fg-45); opacity:.5}
+.need-more{display:grid; grid-template-rows:0fr; transition:grid-template-rows .38s var(--ease); width:100%}
+.need-row.on .need-more{grid-template-rows:1fr}
+.need-more>div{overflow:hidden}
+.need-more p{padding-top:14px; font-size:14.5px; color:var(--fg-70); font-weight:300; line-height:1.6;
+  max-width:52ch; margin-inline:auto}
+.need-more code{background:rgba(255,255,255,.09); border:1px solid rgba(255,255,255,.16); color:#F3C7B2;
+  padding:1.5px 7px; border-radius:6px; font-family:"Space Mono",monospace; font-size:12.5px;
+  direction:ltr; display:inline-block}
+
+.jump{margin-top:32px; display:inline-flex; align-items:center; gap:12px; padding:19px 40px; border-radius:16px;
+  background:var(--clay-dp); color:#fff; font-size:18px; font-weight:700; text-decoration:none;
+  box-shadow:0 12px 34px rgba(217,119,87,.36); transition:filter .2s,transform .14s var(--ease),box-shadow .25s}
+.jump:hover{filter:brightness(1.1); box-shadow:0 16px 44px rgba(217,119,87,.46)}
+.jump:active{transform:scale(.98)}
+.jump svg{width:19px; height:19px}
+.tags{display:flex; flex-wrap:wrap; justify-content:center; gap:9px; margin-top:28px}
+.tags span{padding:7px 15px; border-radius:99px; font-size:12.5px; font-weight:500;
+  background:rgba(217,119,87,.1); border:1px solid rgba(217,119,87,.28); color:#EFB49A}
+
+/* ===== סרגל ===== */
+.hud{position:sticky; top:0; z-index:80; background:rgba(20,16,14,.85); backdrop-filter:blur(20px) saturate(1.4);
+  border-bottom:1px solid rgba(255,255,255,.09); color:#F6F2EC}
+.hud-in{max-width:820px; margin:0 auto; padding:11px 24px; display:flex; align-items:center; gap:15px}
+.hud .logo{font-size:15px; flex-shrink:0}
+.rail{flex:1; height:5px; background:rgba(255,255,255,.11); border-radius:99px; overflow:hidden; min-width:34px}
+.rail i{display:block; height:100%; width:0; border-radius:99px; background:linear-gradient(90deg,var(--clay-dp),var(--clay-lt)); transition:width .6s var(--ease)}
+.tally{font-size:13px; color:#948C82; flex-shrink:0; font-weight:500}
+.tally b{color:var(--clay-lt); font-weight:700; font-size:15px}
+.mini{display:inline-flex; padding:3px; border-radius:99px; background:rgba(255,255,255,.07); flex-shrink:0}
+.mini button{padding:6px 13px; border-radius:99px; font-size:12.5px; font-weight:600; color:#948C82; transition:all .25s var(--ease); display:flex; align-items:center; gap:6px}
+.mini button svg{width:13px; height:13px}
+.mini button.on{background:var(--clay-dp); color:#fff}
+
+/* ===== דרישות ===== */
+/* ===== שלב ===== */
+.eyebrow{display:flex; align-items:center; gap:13px; font-size:11.5px; font-weight:700; letter-spacing:.18em; color:var(--fg-45); margin-bottom:18px}
+.eyebrow .bar{flex:1; height:1px; background:var(--edge); max-width:110px}
+.flag{font-size:11px; font-weight:700; padding:4px 11px; border-radius:99px; background:var(--box); border:1px solid var(--edge-2); color:var(--hi); letter-spacing:.04em}
+.blk h2.st{font-size:clamp(34px,6.4vw,54px)}
+.lede{margin-top:22px; font-size:19px; color:var(--fg-70); font-weight:300; max-width:52ch; line-height:1.62}
+.lede strong{color:var(--fg); font-weight:600}
+.sub-head{display:flex; align-items:center; gap:16px; margin:48px 0 0;
+  font-size:13px; font-weight:700; letter-spacing:.16em; color:var(--hi);
+  font-family:"Space Mono",monospace}
+.sub-head span{flex:1; height:1px; background:var(--edge-2)}
+
+.plans{margin:26px 0 0; display:grid; gap:12px}
+.plan{display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; padding:18px 20px; border-radius:16px;
+  background:var(--box); border:1px solid var(--edge); box-shadow:0 10px 26px rgba(0,0,0,.12);
+  transition:transform .28s var(--ease),border-color .28s}
+.plan:hover{transform:translateY(-3px); border-color:var(--hi)}
+.plan b{font-size:19px; font-weight:800; letter-spacing:-.02em}
+.plan .pr{font-size:15px; font-weight:600; color:var(--hi); font-family:"Space Mono",monospace}
+.plan p{flex-basis:100%; font-size:15px; color:var(--fg-70); font-weight:300; line-height:1.55}
+
+.money{display:inline-flex; align-items:center; gap:8px; margin-top:20px; padding:10px 18px; border-radius:99px;
+  background:var(--box); border:1px solid var(--edge-2); font-size:15px; font-weight:500; color:var(--fg)}
+.money svg{width:16px; height:16px; color:var(--hi)}
+
+/* סרטון */
+.vid{margin:38px 0 0; position:relative; aspect-ratio:2154/1440; border-radius:20px; overflow:hidden;
+  background:#000; margin-inline:-38px;
+  box-shadow:0 24px 60px rgba(0,0,0,.42), 0 0 0 1px var(--edge-2)}
+@media (max-width:820px){.vid{margin-inline:0}}
+.vid iframe{position:absolute; inset:0; width:100%; height:100%; border:0}
+
+.acts{margin:36px 0 0; padding:0; list-style:none; counter-reset:a; display:grid; gap:12px}
+.acts li{counter-increment:a; position:relative; padding:20px 64px 20px 22px; font-size:17px; line-height:1.6;
+  border-radius:16px; background:var(--box); border:1px solid var(--edge); box-shadow:0 10px 28px rgba(0,0,0,.09);
+  transition:transform .28s var(--ease),box-shadow .28s,border-color .28s}
+.acts li:hover{transform:translateY(-4px); box-shadow:0 20px 44px rgba(0,0,0,.14); border-color:var(--hi)}
+.acts li::before{content:counter(a,decimal-leading-zero); position:absolute; right:20px; top:19px;
+  font-family:"Space Mono",monospace; font-size:14.5px; font-weight:700; color:var(--hi)}
+.acts code{background:var(--box); border:1px solid var(--edge-2); color:var(--hi-2); padding:2.5px 9px; border-radius:7px;
+  font-family:"Space Mono",monospace; font-size:13.5px; direction:ltr; display:inline-block}
+.acts a{color:var(--hi); text-decoration:underline}
+
+.tip{margin-top:28px; padding:20px 23px; border-radius:16px; background:var(--box);
+  border-inline-start:4px solid var(--hi); font-size:16.5px; line-height:1.62; color:var(--fg-70); font-weight:300}
+.tip b{color:var(--fg); font-weight:700}
+
+.stuck{margin-top:34px}
+.stuck>button{display:flex; align-items:center; gap:11px; width:100%; padding:17px 22px; border-radius:16px;
+  background:transparent; border:1px solid var(--edge-2); font-size:16px; font-weight:500; color:var(--fg-70); transition:all .25s var(--ease)}
+.stuck>button:hover,.stuck.on>button{color:var(--fg); border-color:var(--hi); background:var(--box)}
+.stuck>button .plus{position:relative; width:15px; height:15px; flex-shrink:0}
+.stuck>button .plus::before,.stuck>button .plus::after{content:""; position:absolute; background:currentColor; border-radius:2px; transition:transform .3s var(--ease)}
+.stuck>button .plus::before{inset:6px 0; height:3px}
+.stuck>button .plus::after{inset:0 6px; width:3px}
+.stuck.on>button .plus::after{transform:scaleY(0)}
+.stuck>button .n{margin-inline-start:auto; font-family:"Space Mono",monospace; font-size:12.5px; color:var(--fg-45)}
+.panel{display:grid; grid-template-rows:0fr; transition:grid-template-rows .45s var(--ease)}
+.stuck.on .panel{grid-template-rows:1fr}
+.panel>div{overflow:hidden}
+.qa{display:grid; gap:1px; margin-top:18px; border-top:1px solid var(--edge)}
+.qa button{width:100%; text-align:right; padding:17px 20px 17px 0; border-bottom:1px solid var(--edge);
+  display:flex; align-items:flex-start; gap:13px; transition:color .2s}
+.qa button:hover{color:var(--hi)}
+.qa button .k{font-family:"Space Mono",monospace; font-size:12.5px; font-weight:700; color:var(--hi); margin-top:4px; flex-shrink:0}
+.qa button .q{flex:1; font-size:16.5px; font-weight:500; line-height:1.45}
+.qa button .caret{width:15px; height:15px; flex-shrink:0; margin-top:5px; color:var(--fg-45); transition:transform .3s var(--ease)}
+.qa .item.on button .caret{transform:rotate(180deg); color:var(--hi)}
+.qa .ans{display:grid; grid-template-rows:0fr; transition:grid-template-rows .38s var(--ease)}
+.qa .item.on .ans{grid-template-rows:1fr}
+.qa .ans>div{overflow:hidden}
+.qa .ans p{padding:0 34px 20px 20px; font-size:16px; color:var(--fg-70); font-weight:300; line-height:1.66}
+.qa code{background:var(--box); border:1px solid var(--edge-2); color:var(--hi-2); padding:1.5px 8px; border-radius:6px;
+  font-family:"Space Mono",monospace; font-size:13px; direction:ltr; display:inline-block}
+.qa a{color:var(--hi); text-decoration:underline}
+
+.go{margin-top:40px; display:inline-flex; align-items:center; gap:12px; padding:19px 40px; border-radius:16px;
+  background:var(--btn); color:var(--btn-fg); font-size:18px; font-weight:700; letter-spacing:-.015em;
+  transition:transform .14s var(--ease),filter .2s,box-shadow .25s; box-shadow:0 10px 30px rgba(0,0,0,.2)}
+.go:hover{filter:brightness(1.1); box-shadow:0 14px 40px rgba(0,0,0,.26)}
+.go:active{transform:scale(.98)}
+.go svg{width:19px; height:19px}
+.done-mark{margin-top:40px; display:none; align-items:center; gap:11px; font-size:17px; font-weight:600; color:var(--ok)}
+.done-mark svg{width:22px; height:22px}
+.blk.ok .go{display:none}
+.blk.ok .done-mark{display:inline-flex}
+
+/* ===== ערכת חילוץ ===== */
+.kit h3{font-size:clamp(28px,5.2vw,42px)}
+.kit>p{margin-top:15px; font-size:17px; color:var(--fg-70); font-weight:300; max-width:52ch}
+.kit ol{margin:40px 0 0; padding:0; list-style:none; counter-reset:k}
+.kit li{counter-increment:k; padding:26px 0; border-top:1px solid var(--edge); display:flex; gap:20px}
+.kit li:last-child{border-bottom:1px solid var(--edge)}
+.kit li::before{content:counter(k,decimal-leading-zero); font-family:"Space Mono",monospace; font-size:15px; font-weight:700; color:var(--hi); flex-shrink:0; padding-top:3px}
+.kit li b{display:block; font-size:19px; font-weight:700; margin-bottom:6px}
+.kit li p{font-size:16px; color:var(--fg-70); font-weight:300; line-height:1.64}
+.kit code{background:var(--box); border:1px solid var(--edge-2); color:var(--hi-2); padding:1.5px 8px; border-radius:6px;
+  font-family:"Space Mono",monospace; font-size:13px; direction:ltr; display:inline-block}
+.kit a{color:var(--hi); text-decoration:underline}
+
+/* ===== סיום ===== */
+#finish{display:none; text-align:center}
+#finish.on{display:block}
+.seal{width:80px; height:80px; border-radius:50%; background:var(--clay); color:#fff; display:grid; place-items:center;
+  margin:0 auto 28px; box-shadow:0 16px 46px rgba(217,119,87,.45)}
+.seal svg{width:38px; height:38px}
+#finish h3{font-size:clamp(40px,8.4vw,72px); letter-spacing:-.048em}
+#finish h3 em{font-style:normal; color:var(--clay); display:block}
+#finish>.in>p{margin:20px auto 0; color:var(--fg-70); font-weight:300; max-width:36ch; font-size:19px}
+.cta{margin-top:38px; display:inline-flex; align-items:center; gap:12px; padding:21px 44px; border-radius:16px;
+  background:var(--clay-dp); color:#fff; font-size:19px; font-weight:700; text-decoration:none;
+  transition:filter .2s,transform .14s var(--ease),box-shadow .25s; box-shadow:0 14px 40px rgba(217,119,87,.38)}
+.cta:hover{filter:brightness(1.1); box-shadow:0 18px 52px rgba(217,119,87,.48)}
+.cta:active{transform:scale(.98)}
+.cta svg{width:19px; height:19px}
+
+.foot{padding:34px 0 60px; background:var(--night); color:#948C82}
+.foot .in{display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap}
+.foot .logo{font-size:14px; color:#ACA49B}
+.foot .logo .ai{color:#8A8177}
+.foot button{font-size:13.5px; color:#948C82; text-decoration:underline}
+.foot button:hover{color:var(--clay-lt)}
+
+body[data-os="win"] .mac-only{display:none}
+body[data-os="mac"] .win-only{display:none}
+
+.rev{opacity:0; transform:translateY(26px); transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.rev.seen{opacity:1; transform:none}
+
+@media (prefers-reduced-motion:reduce){*{animation:none !important; transition-duration:.01ms !important} .rev{opacity:1; transform:none} html{scroll-behavior:auto}}
+@media (min-width:1000px){
+  .intro-vid{width:1000px; margin-inline:calc((100% - 1000px) / 2)}
+}
+@media (max-width:640px){
+  body{font-size:16.5px}
+  .vid{margin-inline:0}
+  .blk{padding:74px 0}
+  .cut-top,.cut-top-r{padding-top:98px; margin-top:-30px}
+  .cut-top{clip-path:polygon(0 0,100% 30px,100% 100%,0 100%)}
+  .cut-top-r{clip-path:polygon(0 30px,100% 0,100% 100%,0 100%)}
+  .hud-in{gap:10px; padding:10px 18px}
+  .hud .logo{font-size:13.5px}
+  .mini button{padding:6px 10px; font-size:12px}
+  .mini button span{display:none}
+  .os-row{grid-template-columns:1fr; gap:12px}
+  .os{flex-direction:row; justify-content:flex-start; text-align:right; padding:22px; gap:18px}
+  .os svg.glyph{width:44px; height:44px}
+  .os>div{align-items:flex-start}
+  .acts li{padding:18px 54px 18px 18px}
+  .acts li::before{right:16px; top:17px}
+  .go,.cta,.jump{width:100%; justify-content:center; padding:18px 24px}
+  .kit li{gap:14px}
+  .qa .ans p{padding-right:30px; padding-left:0}
+}
+</style>
+
+<main>
+<!-- ═══ שער: סרטון + מתג ═══ -->
+<section class="blk t-night glow" id="top" style="--gx:50%;--gy:4%">
+  <div class="in">
+    <div class="top-logo logo">NOAM<span class="ai">AI</span></div>
+    <span class="pill">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1.6l2.1 6.2 6.2 2.1-6.2 2.1-2.1 6.2-2.1-6.2L3.7 9.9l6.2-2.1L12 1.6z"/><path d="M19.2 15.6l.9 2.7 2.7.9-2.7.9-.9 2.7-.9-2.7-2.7-.9 2.7-.9.9-2.7z" opacity=".6"/></svg>
+      מדריך חינמי · לפני שמתחילים את הקורס
+    </span>
+    <h1>עשר דקות.<em>וזהו.</em></h1>
+    <p class="top-sub">בלי טרמינל. בלי פקודות. בלי מילה אחת שלא תבינו.</p>
+
+    <p class="pick-q mono">SELECT YOUR MACHINE</p>
+    <div class="os-row">
+      <button class="os" data-set="mac" type="button">
+        <svg class="glyph" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.7 12.6c0-2.5 2-3.7 2.1-3.8-1.2-1.7-3-1.9-3.6-2-1.5-.2-3 .9-3.8.9-.8 0-2-.9-3.3-.8-1.7 0-3.2 1-4.1 2.5-1.7 3-.4 7.5 1.3 10 .8 1.2 1.8 2.5 3.1 2.5 1.2 0 1.7-.8 3.2-.8s1.9.8 3.2.8c1.3 0 2.2-1.2 3-2.4.9-1.4 1.3-2.7 1.3-2.8-.1 0-2.4-.9-2.4-3.6zM14.3 5.2c.7-.8 1.1-2 1-3.2-1 0-2.2.7-2.9 1.5-.6.7-1.2 1.9-1 3.1 1.1.1 2.2-.6 2.9-1.4z"/></svg>
+        <div><b>מק</b><span>MacBook · iMac · Mac mini</span></div>
+      </button>
+      <button class="os" data-set="win" type="button">
+        <svg class="glyph" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 5.6l7.3-1v7.1H3V5.6zm0 12.8l7.3 1v-7H3v6zm8.2 1.1L21 21V12.6h-9.8v6.9zm0-14.1v7.2H21V3l-9.8 1.4z"/></svg>
+        <div><b>ווינדוס</b><span>כל מחשב PC</span></div>
+      </button>
+    </div>
+
+    <div class="intro-vid" id="introWrap"></div>
+
+    <div class="need-row" id="needRow"></div>
+
+    <a class="jump" href="#s0">
+      יאללה, מתחילים
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+    </a>
+    <div class="tags">
+      <span>בלי טרמינל</span>
+      <span>בלי ידע קודם</span>
+      <span>תמונה בכל שלב</span>
+      <span>פתרון לכל תקלה</span>
+    </div>
+  </div>
+</section>
+
+<div class="hud">
+  <div class="hud-in">
+    <span class="logo">NOAM<span class="ai">AI</span></span>
+    <span class="rail"><i id="fill"></i></span>
+    <span class="tally"><b id="doneN">0</b>/<span id="allN">3</span></span>
+    <span class="mini">
+      <button type="button" data-set="mac"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.7 12.6c0-2.5 2-3.7 2.1-3.8-1.2-1.7-3-1.9-3.6-2-1.5-.2-3 .9-3.8.9-.8 0-2-.9-3.3-.8-1.7 0-3.2 1-4.1 2.5-1.7 3-.4 7.5 1.3 10 .8 1.2 1.8 2.5 3.1 2.5 1.2 0 1.7-.8 3.2-.8s1.9.8 3.2.8c1.3 0 2.2-1.2 3-2.4.9-1.4 1.3-2.7 1.3-2.8-.1 0-2.4-.9-2.4-3.6zM14.3 5.2c.7-.8 1.1-2 1-3.2-1 0-2.2.7-2.9 1.5-.6.7-1.2 1.9-1 3.1 1.1.1 2.2-.6 2.9-1.4z"/></svg><span>מק</span></button>
+      <button type="button" data-set="win"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 5.6l7.3-1v7.1H3V5.6zm0 12.8l7.3 1v-7H3v6zm8.2 1.1L21 21V12.6h-9.8v6.9zm0-14.1v7.2H21V3l-9.8 1.4z"/></svg><span>ווינדוס</span></button>
+    </span>
+  </div>
+</div>
+
+<div id="steps"></div>
+
+<section class="blk t-night glow" id="finish" style="--gx:50%;--gy:8%">
+  <div class="in">
+    <div class="seal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></div>
+    <h3>זהו.<em>זה עובד.</em></h3>
+    <p>קלוד קוד פתוח אצלכם. כל השאר — נלמד בקורס.</p>
+    <a class="cta" href="#">
+      קחו אותי לשיעור הראשון
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    </a>
+  </div>
+</section>
+
+<section class="blk t-esp tex-diag kit">
+  <div class="in rev">
+    <h3>שלושה תיקונים<br>שפותרים כמעט הכל</h3>
+    <p>אם משהו התנהג מוזר ולא מצאתם אותו למעלה, תעברו על השלושה לפי הסדר. ברוב המכריע של המקרים אחד מהם פותר.</p>
+    <ol>
+      <li><div>
+        <b>לצאת מהאפליקציה. באמת לצאת.</b>
+        <p><span class="mac-only">לסגור את החלון זו לא יציאה — קלוד ממשיך לרוץ למטה. לוחצים <code>Cmd + Q</code>. אם הוא לא מגיב: <code>Cmd + Option + Esc</code>, בוחרים Claude, "אלץ יציאה". ואז פותחים מחדש.</span><span class="win-only">לסגור את החלון זו לא יציאה — קלוד ממשיך לרוץ ברקע. לוחצים <code>Ctrl + Shift + Esc</code>, מוצאים את Claude ברשימה, "סיים משימה". ואז פותחים מחדש.</span></p>
+      </div></li>
+      <li><div>
+        <b>לצאת מהחשבון ולהיכנס שוב</b>
+        <p>בתוך קלוד: התפריט למעלה, <code>Sign out</code> (יציאה), ואז להיכנס מחדש. זה הפתרון הרשמי הראשון לכל שגיאת הרשאה, כולל 403.</p>
+      </div></li>
+      <li><div>
+        <b>לוודא שהמנוי באמת פעיל</b>
+        <p>נכנסים ל<a href="https://claude.ai/settings" target="_blank" rel="noopener">claude.ai/settings</a> ובודקים שכתוב Pro. קורה שתשלום נדחה בשקט, והכל נראה תקין עד שמנסים לפתוח את Code.</p>
+      </div></li>
+    </ol>
+  </div>
+</section>
+
+<div class="foot">
+  <div class="in">
+    <span class="logo">NOAM<span class="ai">AI</span></span>
+    <button id="reset" type="button">להתחיל מהתחלה</button>
+  </div>
+</div>
+</main>
+
+<script>
+/* ═══════════════════════════════════════════════════════
+   כאן מדביקים את קישורי הסרטונים. רק המזהה מיוטיוב,
+   החלק שאחרי v= בכתובת. למשל בשביל
+   youtube.com/watch?v=dQw4w9WgXcQ  →  'dQw4w9WgXcQ'
+   שלב שנשאר ריק מציג מסגרת "בקרוב" ולא נשבר.
+   ═══════════════════════════════════════════════════════ */
+const VIDEOS={
+  intro:'XaQxyVzyBqk',                         // הקדמה כללית לדף. אחד לכולם
+  mac:{ install:'Tq4NcpeQieo',                 // חלק 1
+        account:'u7G8oPNWUkE',                 // חלק 2
+        ready:'PJ6pErVxD8E' },                 // חלק 3
+  win:{ git:'', install:'', account:'', ready:'' }
+};
+
+const RHYTHM=[
+ {t:'t-night', tex:'tex-grid', cut:'cut-top',   alt:false},
+ {t:'t-clay',  tex:'tex-diag', cut:'cut-top-r', alt:true },
+ {t:'t-sand',  tex:'tex-dots', cut:'',          alt:false},
+ {t:'t-esp',   tex:'tex-grid', cut:'cut-top',   alt:true }
+];
+
+const NEED={
+ mac:{sys:'מק עם macOS 13 ומעלה',
+      how:'תפריט אפל בפינה ← <code>על אודות מק זה</code>. המספר שם הוא הגרסה שלכם. <b>מק ישן יותר לא יריץ את קלוד קוד</b>, ועדיף לדעת עכשיו.'},
+ win:{sys:'ווינדוס 10 ומעלה',
+      how:'מקש ווינדוס ← כותבים <code>אודות</code> ← <code>אודות המחשב</code>. מחפשים את השורה "מהדורה". <b>ווינדוס 8 או 7 לא יריצו את קלוד קוד</b>, ועדיף לדעת עכשיו.'}
+};
+const ICONS={
+ sys:'<rect x=\'3\' y=\'4\' width=\'18\' height=\'13\' rx=\'2\'/><path d=\'M8 21h8M12 17v4\'/>',
+ pay:'<rect x=\'2\' y=\'5\' width=\'20\' height=\'14\' rx=\'2\'/><path d=\'M2 10h20M6 15h4\'/>',
+ web:'<circle cx=\'12\' cy=\'12\' r=\'9\'/><path d=\'M3 12h18M12 3c2.5 2.7 3.8 6 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-6-3.8-9S9.5 5.7 12 3z\'/>',
+ chip:'<rect x="4" y="4" width="16" height="16" rx="3"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M1 9h3M1 15h3M20 9h3M20 15h3"/>',
+ card:'<rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h4"/>',
+ net:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 6 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-6-3.8-9S9.5 5.7 12 3z"/>'
+};
+const CHECK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>';
+const QUIT={
+ mac:'לסגור את החלון זו לא יציאה. <code>Cmd + Q</code>, ואז לפתוח מחדש.',
+ win:'לסגור את החלון זו לא יציאה. <code>Ctrl + Shift + Esc</code>, למצוא את Claude, "סיים משימה", ואז לפתוח מחדש.'
+};
+
+const GIT={
+ title:'מתקינים Git', pip:'Git', key:'git',
+ lede:'תוכנה קטנה שקלוד צריך כדי לעבוד. <strong>מתקינים אותה פעם אחת ושוכחים ממנה.</strong>',
+ acts:['נכנסים ל<a href="https://git-scm.com/downloads/win" target="_blank" rel="noopener">git-scm.com/downloads/win</a> ומורידים.',
+       'פותחים את הקובץ שירד.',
+       'לוחצים <code>Next</code> (הבא) בכל מסך, עד <code>Install</code> (התקנה).',
+       'בסוף לוחצים <code>Finish</code> (סיום).',
+       'מפעילים את המחשב מחדש.'],
+ tip:'<b>אל תשנו כלום במסכים.</b> Next, Next, Next. זהו.',
+ fixes:[['יש מלא מסכים ואני לא מבין מה לבחור','לא צריך לבחור. Next בכל מסך, בלי לגעת.'],
+        ['זה מסוכן? זה משנה לי משהו במחשב?','לא. היא יושבת בצד ולא עושה כלום לבד.'],
+        ['אפשר לדלג על זה?','בווינדוס לא. בלי זה קלוד לא יתחיל.'],
+        ['ההתקנה נכשלה באמצע','קליק ימני על הקובץ ← "הפעל כמנהל", ולנסות שוב.'],
+        ['איך אני יודע שזה הצליח?','אם המסך האחרון אמר Finish — הצליח.']]
+};
+
+/* ── חלקי הבניין. במק הם שני שלבים נפרדים, בווינדוס מאוחדים ── */
+const P_INSTALL=(os)=>({ key:'install',
+  acts: os==='mac' ? [
+    'נכנסים ל<a href="https://claude.ai/download" target="_blank" rel="noopener">claude.ai/download</a> ולוחצים על ההורדה למק.',
+    'פותחים את הקובץ שירד וגוררים את הסמל לתיקייה שלידו.',
+    'פותחים את קלוד.',
+    'לוחצים <code>Get started</code> (התחלה) ונרשמים, או מתחברים לחשבון שכבר יש לכם.'
+  ] : [
+    'נכנסים ל<a href="https://claude.ai/download" target="_blank" rel="noopener">claude.ai/download</a> ולוחצים על ההורדה לווינדוס.',
+    'פותחים ומתקינים את הקובץ שירד.',
+    'פותחים את קלוד.',
+    'לוחצים <code>Get started</code> (התחלה) ונרשמים, או מתחברים לחשבון שכבר יש לכם.'
+  ]});
+const P_PAY={ key:'account',
+  acts:['לוחצים על השם שלכם בפינה למטה, ואז <code>Upgrade plan</code> (שדרוג המנוי).',
+        'בוחרים <code>Pro</code> ומכניסים פרטי אשראי.'],
+  money:'20 דולר לחודש · אפשר לבטל מתי שרוצים'};
+
+const F_INSTALL=(os)=>(os==='mac' ? [
+  ['כתוב "לא ניתן לפתוח כי המפתח לא מזוהה"','הגנה רגילה של אפל. קליק ימני על האפליקציה, "פתח", ואז "פתח" שוב. פעם אחת בלבד.'],
+  ['גררתי וכלום לא קרה','לחפש "Claude" בזכוכית מגדלת למעלה. אם הוא שם, הכל תקין.'],
+  ['כתוב שהמערכת לא נתמכת','המק שלכם ישן מדי. למרבה הצער אין פתרון.']
+] : [
+  ['ווינדוס אומר שהוא הגן על המחשב','"מידע נוסף" ואז "הפעל בכל זאת". זה נורמלי לכל תוכנה חדשה.'],
+  ['כתוב שהמערכת לא נתמכת','הווינדוס שלכם ישן מדי. למרבה הצער אין פתרון.'],
+  ['כתוב שיש התקנה אחרת בתהליך','קליק ימני על הקובץ ← "הפעל כמנהל".'],
+  ['האנטי-וירוס חוסם','להוסיף חריגה. ההורדה מגיעה מהאתר הרשמי.'],
+  ['יש לי מחשב חדש ודק וההתקנה לא רצה','<b>רק אם המחשב שלכם חדש מאוד.</b> מקש ווינדוס ← "אודות" ← מחפשים "סוג מערכת". אם כתוב שם ARM, חוזרים לעמוד ההורדה ובוחרים את הגרסה ל-ARM. ברוב המחשבים כתוב x64, וזו הרגילה.']
+]).concat([
+  ['לא מוצא את הקובץ שירד','הוא בתיקיית "הורדות".'],
+  ['הדפדפן נפתח ותקוע','לסגור אותו לגמרי, לפתוח שוב ולנסות עוד פעם.']
+]);
+const F_PAY=[
+  ['כבר יש לי חשבון חינמי','זה אותו חשבון. משדרגים אותו, לא פותחים חדש.'],
+  ['אין לי כרטיס אשראי','אפשר גם דרך PayPal, באותו מסך.'],
+  ['המחירים אצלי בשקלים ולא בדולרים','זה בסדר גמור. לפעמים זה מוצג ככה ולפעמים ככה, זה אותו מנוי.'],
+  ['רוצה לנסות לפני שאני משלם','אפשר לבטל בכל רגע ולא לשלם חודש נוסף.'],
+  ['שילמתי וזה עדיין לא עובד','לצאת מהחשבון בקלוד (<code>Sign out</code> · יציאה) ולהיכנס שוב.'],
+  ['יש לי Max או Team','מעולה. גם הם עובדים.']
+];
+const TIP_PAY='<b>שימו לב, וזה חשוב:</b> באותו מסך יש מחיר שנראה זול יותר, אבל הוא <b>שנתי</b> ומשלמים אותו מראש על שנה שלמה. אם אתם עדיין לא בטוחים, תבחרו את החודשי.';
+const PLANS=[['Pro','20 דולר לחודש','זה מה שנעבוד איתו בקורס. מספיק בהחלט'],
+             ['Max','מ-100 דולר לחודש','לשימוש כבד. יש שתי רמות. נדבר על זה בהדרכה']];
+
+/* מק: שני שלבים נפרדים */
+const INSTALL=(os)=>({ title:'מתקינים את קלוד', pip:'התקנה', ...P_INSTALL(os),
+  lede:'ההורדה חינם. <strong>שתי דקות.</strong>', fixes:F_INSTALL(os) });
+const PAY={ title:'נכנסים ומשלמים', pip:'תשלום', ...P_PAY,
+  lede:'<strong>קלוד קוד לא עובד בגרסה החינמית.</strong> צריך מנוי.',
+  tip:TIP_PAY, plans:PLANS, fixes:F_PAY };
+
+/* ווינדוס: שלב אחד מאוחד */
+const SETUP=(os)=>({ title:'מתקינים ונרשמים', pip:'התקנה',
+  lede:'זה החלק היחיד שעולה כסף, וזה גם הכי קצר. <strong>שתי דקות.</strong>',
+  parts:[P_INSTALL(os), {head:'ועכשיו התשלום', ...P_PAY}],
+  tip:TIP_PAY, plans:PLANS, fixes:F_INSTALL(os).concat(F_PAY) });
+
+const READY=(os)=>({
+ title:'וזהו, בדיקה אחרונה', pip:'בדיקה', key:'ready',
+ lede:'נשאר רק לוודא שהכל עובד. <strong>אל תדלגו על זה.</strong>',
+ acts: os==='mac' ? [
+   'פותחים את קלוד. תקפוץ הודעה שהוא צריך להתקין כלי עזר — <b>עוקבים אחרי הוראות ההתקנה עד הסוף.</b>',
+   'הולכים למסך הראשי ופותחים שם תיקייה חדשה בשם <b>קלוד קוד</b>.',
+   'חוזרים לקלוד. למעלה אפשר לעבור בין <b>קלוד הרגיל</b> (הצ\'אט) לבין <b>קלוד קוד</b>. עוברים לקלוד קוד.',
+   'לוחצים על <code>Select folder</code> (בחירת תיקייה) ובוחרים את התיקייה שיצרתם.',
+   'מכאן יקפצו כמה הודעות אישור. <b>מאשרים את כולן.</b>',
+   'כותבים לו <b>שלום</b> ושולחים.'
+ ] : [
+   'פותחים את קלוד.',
+   'הולכים למסך הראשי ופותחים שם תיקייה חדשה בשם <b>קלוד קוד</b>.',
+   'חוזרים לקלוד. למעלה אפשר לעבור בין <b>קלוד הרגיל</b> (הצ\'אט) לבין <b>קלוד קוד</b>. עוברים לקלוד קוד.',
+   'לוחצים על <code>Select folder</code> (בחירת תיקייה) ובוחרים את התיקייה שיצרתם.',
+   'מכאן יקפצו כמה הודעות אישור. <b>מאשרים את כולן.</b>',
+   'כותבים לו <b>שלום</b> ושולחים.'
+ ],
+ tip:'<b>קלוד ענה לכם?</b> סיימתם. אפשר לסגור ולחכות להדרכה.',
+ fixes: (os==='mac' ? [
+   ['לחצתי על התקנה ונראה שכלום לא קרה','החלונית כנראה נפתחה <b>מאחורי</b> קלוד. תלכו למסך הראשי ותחפשו אותה שם.'],
+   ['לא קפצה לי בכלל ההודעה על ההתקנה','יש מקים שכבר מגיעים עם הכלי הזה. אין מה להילחץ, פשוט תמשיכו הלאה.'],
+   ['ההתקנה לוקחת המון זמן','לפעמים זה שלוש-ארבע דקות. תנו לזה לרוץ.'],
+   ['כתוב לי שהמחשב לא מחובר לחשמל','לא קשור, אפשר להתעלם.']
+ ] : [
+   ['כתוב <code>Git is required</code> (נדרש גיט)','חסר Git. חוזרים לשלב שלו, מתקינים, ואז סוגרים את קלוד לגמרי ופותחים.'],
+   ['לוחץ ולא קורה כלום','לסגור את קלוד לגמרי ולפתוח מחדש.']
+ ]).concat([
+   ['אני לא מוצא איפה עוברים לקלוד קוד','זה למעלה במרכז. אם המסך שלכם נראה כמו צ\'אט רגיל — אתם בקלוד הרגיל.'],
+   ['קלוד לא ענה לי כלום','כנראה שכלי העזר לא הותקן עד הסוף. תחזרו לצעד הראשון ותוודאו שההתקנה הסתיימה.'],
+   ['מבקש ממני לשדרג','המנוי לא נקלט. לבדוק ב<a href="https://claude.ai/settings" target="_blank" rel="noopener">claude.ai/settings</a> שכתוב שם Pro.'],
+   ['כתוב <code>403</code> או <code>Forbidden</code> (אין הרשאה)','בתפריט: יציאה מהחשבון, ואז להיכנס שוב. זה פותר את רוב המקרים.'],
+   ['לא נעים לי לאשר גישה לתיקייה','קלוד רואה רק את התיקייה שבחרתם. שום דבר אחר במחשב.'],
+   ['אני ברשת של מקום עבודה','לפעמים חוסמים. לנסות מהבית או מנקודה חמה בטלפון.']
+ ])
+});
+
+const build=os=> os==='mac'
+  ? [INSTALL('mac'),PAY,READY('mac')]
+  : [GIT,SETUP('win'),READY('win')];
+
+const NEXTLBL=['התקנתי, הלאה','שילמתי, ממשיכים','סגור, הלאה'];
+
+const KEY='noam-install-v6';
+let os=null, steps=[], done=new Set(), io=null;
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+function save(){ try{localStorage.setItem(KEY,JSON.stringify({os,done:[...done]}))}catch(e){} }
+
+function setOS(which,keep){
+  os=which; steps=build(os);
+  document.body.dataset.os=os;
+  document.querySelectorAll('[data-set]').forEach(b=>b.classList.toggle('on',b.dataset.set===os));
+  const iw=$('#introWrap');
+  if(iw && !iw.firstChild && VIDEOS.intro){
+    iw.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+VIDEOS.intro+
+      '?rel=0&hl=he" title="איך הדף הזה עובד" loading="lazy" allowfullscreen '+
+      'allow="accelerometer; encrypted-media; picture-in-picture; fullscreen"></iframe>';
+  }
+  $('#allN').textContent=steps.length;
+  const ic=k=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">${ICONS[k]}</svg>`;
+  $('#needRow').innerHTML=`
+    <span class="need-item">${ic('sys')}${esc(NEED[os].sys)}
+      <button class="qq" type="button" data-need aria-label="איך בודקים">?</button></span>
+    <span class="need-dot">·</span>
+    <span class="need-item hot">${ic('pay')}מנוי בתשלום, מ-20 דולר לחודש</span>
+    <span class="need-dot">·</span>
+    <span class="need-item">${ic('web')}חיבור לאינטרנט</span>
+    <div class="need-more"><div><p>${NEED[os].how}</p></div></div>`;
+  if(!keep) done=new Set();
+  render(); save();
+}
+
+function render(){
+  $('#steps').innerHTML = steps.map((s,i)=>{
+    const r=RHYTHM[i%RHYTHM.length];
+    const ok=done.has(i);
+    const last=i===steps.length-1;
+    const qa=s.fixes.map((f,k)=>`
+      <div class="item" data-qa="${i}-${k}">
+        <button type="button">
+          <span class="k mono">${String(k+1).padStart(2,'0')}</span>
+          <span class="q">${f[0]}</span>
+          <svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="ans"><div><p>${f[1]}</p></div></div>
+      </div>`).join('');
+    return `
+    <section class="blk ${r.t} ${r.tex} ${r.cut} ${r.alt?'blk-alt':''} ${ok?'ok':''}" id="s${i}" data-i="${i}">
+      <span class="ghost">${i+1}</span>
+      <div class="in rev">
+        <div class="eyebrow">
+          <span class="mono">שלב ${i+1} מתוך ${steps.length}</span>
+          <span class="bar"></span>
+          ${s.flag?`<span class="flag">${esc(s.flag)}</span>`:''}
+        </div>
+        <h2 class="st">${esc(s.title)}</h2>
+        <p class="lede">${s.lede}</p>
+        ${(s.parts||[{key:s.key,acts:s.acts,money:s.money}]).map(pt=>`
+          ${pt.head?`<h3 class="sub-head"><span></span>${esc(pt.head)}</h3>`:''}
+          ${(VIDEOS[os]||{})[pt.key]?`<div class="vid">
+            <iframe src="https://www.youtube-nocookie.com/embed/${(VIDEOS[os]||{})[pt.key]}?rel=0&hl=he"
+              title="${esc(s.title)}" loading="lazy" allowfullscreen
+              allow="accelerometer; encrypted-media; picture-in-picture; fullscreen"></iframe>
+          </div>`:''}
+          <ol class="acts">${pt.acts.map(a=>`<li>${a}</li>`).join('')}</ol>
+          ${pt.money?`<span class="money"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>${esc(pt.money)}</span>`:''}
+        `).join('')}
+        ${s.tip?`<div class="tip">${s.tip}</div>`:''}
+        ${s.plans?`<div class="plans">${s.plans.map(pl=>`
+          <div class="plan"><b>${esc(pl[0])}</b><span class="pr">${esc(pl[1])}</span><p>${esc(pl[2])}</p></div>`).join('')}</div>`:''}
+        <div class="stuck">
+          <button type="button" data-act="stuck">
+            <span class="plus"></span>
+            יש תקלה?
+            <span class="n mono">${s.fixes.length}</span>
+          </button>
+          <div class="panel"><div><div class="qa">${qa}</div></div></div>
+        </div>
+        <button class="go" type="button" data-act="done">
+          ${last?'זה עובד!':esc(NEXTLBL[i%NEXTLBL.length])}
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        </button>
+        <span class="done-mark">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.8 2.8L16 10"/></svg>
+          מאחוריכם
+        </span>
+      </div>
+    </section>`;
+  }).join('');
+  reveal(); meter();
+}
+
+function reveal(){
+  if(io) io.disconnect();
+  const els=[...document.querySelectorAll('.rev')];
+  if(!window.IntersectionObserver || matchMedia('(prefers-reduced-motion:reduce)').matches){
+    els.forEach(e=>e.classList.add('seen')); return;
+  }
+  io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('seen'); io.unobserve(e.target)}})},
+    {rootMargin:'0px 0px -10% 0px',threshold:.04});
+  els.forEach(e=>io.observe(e));
+}
+
+function meter(){
+  const n=done.size, all=steps.length;
+  $('#fill').style.width=(n/all*100)+'%';
+  $('#doneN').textContent=n;
+  $('#finish').classList.toggle('on',n===all);
+}
+function goTo(sel){const el=document.querySelector(sel); if(el) window.scrollTo({top:el.getBoundingClientRect().top+window.scrollY-50,behavior:'smooth'})}
+
+document.addEventListener('click',e=>{
+  const set=e.target.closest('[data-set]');
+  if(set){ setOS(set.dataset.set,false); return; }
+  const qa=e.target.closest('[data-qa] > button');
+  if(qa){
+    const item=qa.parentElement, box=item.parentElement, was=item.classList.contains('on');
+    box.querySelectorAll('.item').forEach(x=>x.classList.remove('on'));
+    item.classList.toggle('on',!was); return;
+  }
+  if(e.target.closest('[data-need]')){ $('#needRow').classList.toggle('on'); return; }
+  const act=e.target.closest('[data-act]');
+  if(!act) return;
+  const blk=act.closest('.blk'), i=blk?+blk.dataset.i:-1;
+  if(act.dataset.act==='stuck'){ act.parentElement.classList.toggle('on'); return; }
+  if(act.dataset.act==='done'){
+    done.add(i); save(); blk.classList.add('ok'); meter();
+    const next=steps.findIndex((_,k)=>!done.has(k));
+    setTimeout(()=>goTo(next>-1?`#s${next}`:'#finish'),120);
+  }
+});
+$('#reset').addEventListener('click',()=>{done=new Set(); save(); render(); window.scrollTo({top:0,behavior:'smooth'})});
+
+/* זיהוי אוטומטי, וזיכרון של הבחירה */
+let boot='mac';
+try{
+  const r=JSON.parse(localStorage.getItem(KEY)||'null');
+  if(r&&r.os){ boot=r.os; done=new Set(r.done||[]); }
+  else if(/Win/i.test(navigator.platform||navigator.userAgent)) boot='win';
+}catch(e){ if(/Win/i.test(navigator.userAgent)) boot='win'; }
+setOS(boot,true);
+</script>
+
+</html>
