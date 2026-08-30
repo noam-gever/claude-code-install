@@ -1,0 +1,45 @@
+<!doctype html><html><head><meta charset="utf-8"></head><body><div id="o">…</div>
+<script>
+const SIZES=[[320,568,'SE ישן'],[375,667,'iPhone 8'],[390,844,'iPhone 14'],[430,932,'Pro Max'],[768,1024,'iPad'],[1024,768,'לפטופ'],[1440,900,'דסקטופ']];
+(async()=>{
+ const res={};
+ for(const [w,h,name] of SIZES){
+  const fr=document.createElement('iframe');
+  fr.style.cssText=`width:${w}px;height:${h}px;border:0;position:absolute;left:-9999px`;
+  fr.src='http://localhost:8815/index.html';
+  document.body.appendChild(fr);
+  await new Promise(r=>{fr.onload=r;setTimeout(r,5000)});
+  await new Promise(r=>setTimeout(r,600));
+  try{
+   const win=fr.contentWindow, doc=fr.contentDocument, cs=e=>win.getComputedStyle(e);
+   win.localStorage.clear();
+   doc.querySelector('[data-os="win"]').click();
+   await new Promise(r=>setTimeout(r,800));
+   doc.querySelector('[data-go="1"]').click();
+   await new Promise(r=>setTimeout(r,800));
+   const CW=doc.documentElement.clientWidth;
+   const over=[];
+   doc.querySelectorAll('*').forEach(e=>{const r=e.getBoundingClientRect();
+     if(r.width>0&&(r.right>CW+1||r.left<-1))over.push(e.tagName+'.'+String(e.className).slice(0,18));});
+   const sc=doc.querySelector('.scr.on');
+   const tiny=[];
+   sc.querySelectorAll('button,a').forEach(e=>{const r=e.getBoundingClientRect();
+     if(r.width>0&&(r.height<40||r.width<40))tiny.push(((e.textContent||'').trim().slice(0,14))+' '+Math.round(r.width)+'x'+Math.round(r.height));});
+   const small=[];
+   sc.querySelectorAll('p,li,span,button').forEach(e=>{const t=(e.textContent||'').trim();if(!t)return;
+     const fs=parseFloat(cs(e).fontSize); if(fs<13)small.push(t.slice(0,12)+' '+fs+'px');});
+   res[w+'×'+h+' '+name]={
+     ox:doc.documentElement.scrollWidth>CW+1,
+     over:[...new Set(over)].slice(0,3),
+     scrolls: sc.scrollHeight>sc.clientHeight+2,
+     need: Math.round(sc.querySelector('.pane').getBoundingClientRect().height),
+     have: h-76,
+     h2:parseFloat(cs(sc.querySelector('h2')).fontSize),
+     tiny:[...new Set(tiny)].slice(0,3),
+     small:[...new Set(small)].slice(0,2)};
+  }catch(e){res[w+' '+name]={err:String(e).slice(0,70)}}
+  fr.remove();
+ }
+ document.getElementById('o').textContent=JSON.stringify(res,null,1); window.__d=1;
+})();
+</script></body></html>

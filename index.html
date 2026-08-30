@@ -6,7 +6,7 @@
 <title>מתקינים את קלוד קוד</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;800;900&family=Montserrat:wght@900&family=Space+Mono:wght@400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;800;900&family=Poppins:wght@800;900&family=Space+Mono:wght@400;700&display=swap">
 <style>
 :root{
   --clay:#D97757; --clay-lt:#E89B7D; --clay-dp:#A8492C;
@@ -33,7 +33,7 @@ button{font:inherit; cursor:pointer; border:none; background:none; color:inherit
 a{color:var(--clay-lt)}
 :focus-visible{outline:2.5px solid var(--clay); outline-offset:3px; border-radius:10px}
 .mono{font-family:"Space Mono",ui-monospace,monospace; letter-spacing:.02em}
-.logo{font-family:Montserrat,sans-serif; font-weight:900; letter-spacing:-.035em; user-select:none}
+.logo{font-family:Poppins,Montserrat,sans-serif; font-weight:900; letter-spacing:-.045em; user-select:none}
 .logo i{font-style:normal; color:var(--clay)}
 
 /* ── אווירה: שלוש שכבות שנעות באיטיות ── */
@@ -58,7 +58,7 @@ a{color:var(--clay-lt)}
 
 /* ── סרגל ── */
 .bar{position:fixed; top:0; inset-inline:0; z-index:30; height:56px;
-  display:flex; align-items:center; gap:18px; padding:0 22px;
+  display:flex; align-items:center; gap:14px; padding:0 16px;
   background:rgba(20,16,14,.72); backdrop-filter:blur(16px);
   border-bottom:1px solid var(--line); opacity:0; pointer-events:none;
   transition:opacity .4s var(--e)}
@@ -77,7 +77,7 @@ a{color:var(--clay-lt)}
 /* ── מסך ── */
 .scr{position:fixed; inset:0; z-index:10; display:none;
   overflow-y:auto; overscroll-behavior:contain;
-  padding:76px 22px 40px; place-items:start center}
+  padding:70px 22px 30px; place-items:start center}
 .scr.on{display:grid; animation:in .5s var(--e)}
 .scr.out{display:grid; animation:out .34s var(--e) forwards; pointer-events:none}
 @keyframes in{from{opacity:0; transform:translateX(28px) scale(.985)} to{opacity:1; transform:none}}
@@ -126,7 +126,7 @@ a{color:var(--clay-lt)}
 
 /* ── המספר הענק ── */
 .ghost{position:absolute; z-index:0; pointer-events:none; user-select:none;
-  font-family:Montserrat,sans-serif; font-weight:900; line-height:.7;
+  font-family:Poppins,Montserrat,sans-serif; font-weight:900; line-height:.7;
   font-size:clamp(300px,46vw,680px); letter-spacing:-.07em; color:var(--w);
   inset-inline-start:-.06em; top:50%; opacity:0;
   transform:translateY(-50%) scale(.92);
@@ -137,24 +137,24 @@ a{color:var(--clay-lt)}
 
 /* ── מסך שלב ── */
 .grid{display:block}
-.vid{position:relative; width:100%; max-width:640px; margin:22px auto 0; aspect-ratio:2154/1440; border-radius:18px; overflow:hidden;
+.vid{position:relative; width:100%; max-width:560px; margin:18px auto 0; aspect-ratio:2154/1440; border-radius:18px; overflow:hidden;
   background:#000; box-shadow:0 22px 56px rgba(0,0,0,.5), 0 0 0 1px var(--line-2)}
 .vid iframe{position:absolute; inset:0; width:100%; height:100%; border:0}
 .vid.none{display:grid; place-items:center; width:100%; max-width:640px; margin:22px auto 0; aspect-ratio:2154/1440; background:var(--box);
   border:1px dashed var(--line-2); box-shadow:none}
 .vid.none span{font-size:14px; color:var(--w45); font-weight:300}
 
-.eyebrow{display:flex; align-items:center; gap:12px; font-size:12px; font-weight:700;
-  letter-spacing:.16em; color:var(--w45); margin-bottom:14px}
+.eyebrow{display:flex; align-items:center; gap:12px; font-size:13px; font-weight:700;
+  letter-spacing:.14em; color:var(--w45); margin-bottom:12px}
 .eyebrow s{flex:1; height:1px; background:var(--line); text-decoration:none}
-.scr h2{font-size:clamp(30px,4.4vw,44px)}
-.acts{margin:26px 0 0; padding:0; list-style:none; counter-reset:a; display:grid; gap:11px}
-.acts li{counter-increment:a; position:relative; padding:14px 56px 14px 16px;
-  font-size:16.5px; line-height:1.55; color:var(--w); font-weight:300;
+.scr h2{font-size:clamp(27px,3.6vw,38px)}
+.acts{margin:20px 0 0; padding:0; list-style:none; counter-reset:a; display:grid; gap:8px}
+.acts li{counter-increment:a; position:relative; padding:11px 52px 11px 14px;
+  font-size:16px; line-height:1.5; color:var(--w); font-weight:300;
   background:rgba(255,255,255,.045); border:1px solid var(--line); border-radius:14px}
 .acts li b{font-weight:600}
-.acts li::before{content:counter(a); position:absolute; right:14px; top:13px;
-  width:30px; height:30px; border-radius:10px;
+.acts li::before{content:counter(a); position:absolute; right:12px; top:10px;
+  width:28px; height:28px; border-radius:9px;
   background:var(--pip,#A8492C); color:#fff;
   font-family:"Space Mono",monospace; font-size:14px; font-weight:700;
   display:grid; place-items:center;
@@ -164,7 +164,7 @@ a{color:var(--clay-lt)}
   direction:ltr; display:inline-block}
 .acts a{text-decoration:underline}
 
-.go{margin-top:22px; width:100%; padding:17px; border-radius:14px;
+.go{margin-top:16px; width:100%; padding:16px; border-radius:14px;
   background:var(--clay-dp); color:#fff; font-size:17.5px; font-weight:700;
   display:flex; align-items:center; justify-content:center; gap:10px;
   box-shadow:0 12px 30px rgba(168,73,44,.4);
@@ -173,14 +173,17 @@ a{color:var(--clay-lt)}
 .go:active{transform:scale(.985)}
 .go svg{width:18px; height:18px}
 
-.back{margin-top:16px; display:inline-flex; align-items:center; gap:7px;
-  font-size:14.5px; color:var(--w45); transition:color .2s}
+.back{display:inline-flex; align-items:center; gap:7px; min-height:44px; padding:0 13px;
+  border-radius:11px; font-size:14.5px; color:var(--w70); transition:all .2s; order:-1}
+.back:hover{color:var(--clay-lt); background:rgba(255,255,255,.07)}
+.back svg{width:14px; height:14px}
+.back[hidden]{display:none}
 .back:hover{color:var(--clay-lt)}
 .back svg{width:13px; height:13px}
 
 /* שורת ההצלחה */
-.win-box{margin-top:16px; display:flex; align-items:center; gap:14px;
-  padding:18px 20px; border-radius:15px;
+.win-box{margin-top:12px; display:flex; align-items:center; gap:13px;
+  padding:14px 17px; border-radius:15px;
   background:rgba(111,181,138,.13); border:1.5px solid rgba(111,181,138,.45);
   font-size:17px; font-weight:600; color:#B8E4C8; line-height:1.45}
 .win-box .v{width:30px; height:30px; border-radius:50%; flex-shrink:0;
@@ -188,8 +191,8 @@ a{color:var(--clay-lt)}
 .win-box .v svg{width:16px; height:16px}
 
 /* ── שאלות, בתוך המסך ── */
-.oops-wrap{margin-top:24px}
-.oops-t{display:flex; align-items:center; gap:12px; width:100%; padding:16px 20px;
+.oops-wrap{margin-top:16px}
+.oops-t{display:flex; align-items:center; gap:12px; width:100%; padding:14px 18px;
   font-size:17px; font-weight:600; color:var(--w);
   background:rgba(255,255,255,.05); border:1.5px solid var(--line-2); border-radius:14px;
   transition:all .25s var(--e)}
@@ -221,11 +224,11 @@ a{color:var(--clay-lt)}
 .qa .ans{display:grid; grid-template-rows:0fr; transition:grid-template-rows .32s var(--e)}
 .qa .it.on .ans{grid-template-rows:1fr}
 .qa .ans>div{overflow:hidden}
-.qa .ans p{padding:0 0 14px; font-size:15px; color:var(--w70); font-weight:300; line-height:1.6}
+.qa .ans p{padding:0 0 14px; font-size:15px; line-height:1.65; color:var(--w70); font-weight:300; line-height:1.6}
 .qa code{background:rgba(0,0,0,.42); border:1px solid var(--line-2); color:#F3C7B2;
   padding:1.5px 7px; border-radius:6px; font-family:"Space Mono",monospace; font-size:13px;
   direction:ltr; display:inline-block}
-.qa a{text-decoration:underline}
+.qa a{text-decoration:underline; display:inline-block; padding:11px 4px; min-height:44px}
 
 /* ── סיום ── */
 #done .pane{max-width:560px; text-align:center}
@@ -266,7 +269,11 @@ a{color:var(--clay-lt)}
 <div class="air" id="air"></div>
 
 <div class="bar" id="bar">
-  <span class="logo">NOAM<i>AI</i></span>
+  <button class="back" id="back" type="button" hidden>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    <span>חזרה</span>
+  </button>
+  <span class="logo">NO<i>AI</i>M</span>
   <span class="chip">
     <svg id="osIcon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"></svg>
     <span id="osName"></span>
@@ -278,7 +285,7 @@ a{color:var(--clay-lt)}
 <!-- בחירה -->
 <section class="scr on" id="pick">
   <div class="pane">
-    <div class="hero-logo logo">NOAM<i>AI</i></div>
+    <div class="hero-logo logo">NO<i>AI</i>M</div>
     <h1>עשר דקות.<em>וזהו.</em></h1>
     <p class="lead">מתקינים את קלוד קוד ביחד. בלי טרמינל, בלי פקודות.</p>
     <p class="ask">על איזה מחשב אתם?</p>
@@ -478,9 +485,6 @@ function start(which,jumpTo){
             ${last?'סיימתי!':esc(NEXT[i%NEXT.length])}
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
           </button>
-          ${i>0?`<button class="back" data-back="${i}" type="button">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            חזרה לשלב הקודם</button>`:''}
         </div>
       </div>
     </section>`;
@@ -502,6 +506,7 @@ function show(i){
   next.scrollTop=0;
   at=i;
   $('#bar').classList.toggle('on', i>=0);
+  const bk=$('#back'); bk.hidden = !(i>0); bk.dataset.back=i;
   const m=MOOD[Math.max(0,i)%MOOD.length];
   const t=$('#tone'), a=$('#air');
   t.style.backgroundColor=m.tone; t.classList.toggle('on', i>=0);
@@ -518,7 +523,7 @@ document.addEventListener('click',e=>{
   if(pk){ start(pk.dataset.os); return; }
   const go=e.target.closest('[data-go]');
   if(go){ show(+go.dataset.go+1); return; }
-  const bk=e.target.closest('[data-back]');
+  const bk=e.target.closest('#back');
   if(bk){ show(+bk.dataset.back-1); return; }
   const fx=e.target.closest('[data-fx]');
   if(fx){ fx.parentElement.classList.toggle('on'); return; }
